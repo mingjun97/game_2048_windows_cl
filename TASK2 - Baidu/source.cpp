@@ -120,15 +120,38 @@ void move(int pos, int direction) {
 	case 1:
 		if ((pos / 4) == 0) break;
 		if ((arr[pos / 4][pos % 4] == 0 )) break;
-		if (arr[pos / 4 - 1][pos % 4] == 0) sw(pos,direction);
-		if (arr[pos / 4 - 1][pos % 4] == arr[pos / 4][pos % 4]) {add(pos, direction);}else {break;}
-		move_counter++;
+		if (arr[pos / 4 - 1][pos % 4] == 0) {sw(pos, direction); move_counter++; break;}
+		if (arr[pos / 4 - 1][pos % 4] == arr[pos / 4][pos % 4]) {add(pos, direction);move_counter++;
+		}else {break;}
+
+
 		break;
 	case 2:
+		if ((pos / 4 )== 3) break;
+		if ((arr[pos / 4][pos % 4] == 0)) break;
+		if (arr[pos / 4 + 1][pos % 4] == 0) { sw(pos, direction); move_counter++; break; }
+		if (arr[pos / 4 + 1][pos % 4] == arr[pos / 4][pos % 4]) {
+			add(pos, direction); move_counter++;
+		}
+		else { break; }
 		break;
 	case 3:
+		if ((pos % 4) == 0) break;
+		if ((arr[pos / 4][pos % 4] == 0)) break;
+		if (arr[pos / 4][pos % 4 - 1] == 0) { sw(pos, direction); move_counter++; break; }
+		if (arr[pos / 4 ][pos % 4 - 1] == arr[pos / 4][pos % 4]) {
+			add(pos, direction); move_counter++;
+		}
+		else { break; }
 		break;
 	case 4:
+		if ((pos % 4) == 3) break;
+		if ((arr[pos / 4][pos % 4] == 0)) break;
+		if (arr[pos / 4][pos % 4 + 1] == 0) { sw(pos, direction); move_counter++; break; }
+		if (arr[pos / 4][pos % 4 + 1] == arr[pos / 4][pos % 4]) {
+			add(pos, direction); move_counter++;
+		}
+		else { break; }
 		break;
 	}
 }
@@ -138,7 +161,18 @@ void sw(int pos,int direction) {
 			arr[pos / 4 - 1][pos % 4] = arr[pos / 4][pos % 4];
 			arr[pos / 4][pos % 4] = 0;
 			break;
-
+		case 2:
+			arr[pos / 4 + 1][pos % 4] = arr[pos / 4][pos % 4];
+			arr[pos / 4][pos % 4] = 0;
+			break;
+		case 3:
+			arr[pos / 4 ][pos % 4 -1] = arr[pos / 4][pos % 4];
+			arr[pos / 4][pos % 4] = 0;
+			break;
+		case 4:
+			arr[pos / 4 ][pos % 4 + 1] = arr[pos / 4][pos % 4];
+			arr[pos / 4][pos % 4] = 0;
+			break;
 	}
 }
 void add(int pos, int direction) {
@@ -146,6 +180,21 @@ void add(int pos, int direction) {
 	switch (direction) {
 	case 1:
 		arr[pos / 4 - 1][pos % 4] *= 2;
+
+		arr[pos / 4][pos % 4] = 0;
+		break;
+	case 2:
+		arr[pos / 4 + 1][pos % 4] *= 2;
+
+		arr[pos / 4][pos % 4] = 0;
+		break;
+	case 3:
+		arr[pos / 4][pos % 4 - 1] *= 2;
+
+		arr[pos / 4][pos % 4] = 0;
+		break;
+	case 4:
+		arr[pos / 4][pos % 4 + 1] *= 2;
 
 		arr[pos / 4][pos % 4] = 0;
 		break;
