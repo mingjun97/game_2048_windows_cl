@@ -6,12 +6,13 @@ const int TOP = 1;
 const int DOWN = 2;
 const int LEFT = 3;
 const int RIGHT = 4;
+int start = 0;
 int arr[4][4];
 void print();
 void putkey(int direction);
 void isDead();
 void move(int pos,int direction);
-int move_counter;
+int move_counter,move_counter2;
 void sw(int pos,int direction);
 void add(int pos, int direction);
 int main()
@@ -20,7 +21,7 @@ int main()
 	putkey(DOWN);
 	while (1)//主循环
 	{
-
+		move_counter2 = -1;
 		key = _getch();/*用于去掉第一个字节*/
 		system("CLS");
 		if (key == 27) break; /*如果是ESC退出*/
@@ -58,7 +59,9 @@ void putkey(int direction) {
 	//合并数字
 	int tmp;
 	move_counter = 1;
+	move_counter2 = 0;
 	while (move_counter != 0) {
+		if (move_counter != 0) move_counter2++;
 		move_counter = 0;
 		for (tmp = 0; tmp <= 15; tmp++) {
 			move(tmp, direction);
@@ -67,8 +70,13 @@ void putkey(int direction) {
 	}
 	//判断当前是否死亡
 	isDead();
+	if (move_counter2 == 1 && start != 0) {
+		print();
+		return;
+	}
 //生成所添加的数字 
 //当前出现2的几率为0.8 出现4的几率为0.2
+	start = 1;
 	int addnum = 0;
 	if ((rand() % 10) <= 8) {addnum = 2;}else{addnum = 4;}
 	int posi = 0;
@@ -105,6 +113,7 @@ void isDead() {
 			key = _getch();
 			if (key == 115) {
 				for (tmp = 0; tmp <= 15; tmp++) arr[tmp / 4][tmp % 4] = 0;
+				start = 0;
 				system("CLS");
 				break;
 			}
